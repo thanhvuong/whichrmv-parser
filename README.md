@@ -1,6 +1,8 @@
+[![build status](https://travis-ci.org/thanhvuong/whichrmv-parser.svg?branch=master)](https://travis-ci.org/thanhvuong/whichrmv-parser)
+
 # whichrmv-parser
 
-This package gets Massachusetts RMV wait times and used by whichrmv.com
+This package parses Massachusetts RMV wait times and will be used on v2 of whichrmv.com
 
 ## Install
 
