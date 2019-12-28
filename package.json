@@ -1,0 +1,32 @@
+{
+  "name": "whichrmv-parser",
+  "version": "1.0.0",
+  "description": "parses massachusetts rmv data",
+  "main": "index.js",
+  "author": "Thanh Vuong",
+  "license": "MIT",
+  "keywords": [
+    "rmv",
+    "dmv",
+    "massachusetts",
+    "mass",
+    "ma",
+    "massdot"
+  ],
+  "homepage": "https://github.com/thanhvuong/whichrmv-parser",
+  "bugs": {
+    "url": "https://github.com/thanhvuong/whichrmv-parser/issues"
+  },
+  "dependencies": {
+    "esm": "^3.2.25",
+    "fast-xml-parser": "^3.15.1",
+    "isomorphic-unfetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "jest-esm-transformer": "^1.0.0"
+  },
+  "scripts": {
+    "test": "jest --runInBand --no-cache --config jest.config.js"
+  }
+}
