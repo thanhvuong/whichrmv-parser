@@ -20,7 +20,8 @@
   "dependencies": {
     "esm": "^3.2.25",
     "fast-xml-parser": "^3.15.1",
-    "isomorphic-unfetch": "^3.0.0"
+    "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
     "jest": "^24.9.0",
