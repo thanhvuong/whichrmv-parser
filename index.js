@@ -73,7 +73,7 @@ export const parseWaitTimes = async () => {
     throw new Error("XML is not valid");
   }
 
-  const jsonObj = await parseAsync(xml);
+  const jsonObj = parseAsync(xml);
 
   const branchData = jsonObj?.branches?.branch ?? [];
 
