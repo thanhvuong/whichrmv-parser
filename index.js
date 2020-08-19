@@ -13,6 +13,10 @@ export const formatWaitTime = waitTime => {
     return -1;
   }
 
+  if (waitTime === 'Unavailable') {
+    return -2;
+  }
+
   try {
     const timeSegment = waitTime.split(':');
     if (!+timeSegment[0] && !+timeSegment[1] && !+timeSegment[2]) {
