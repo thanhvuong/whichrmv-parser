@@ -1,9 +1,6 @@
 import fetch from "isomorphic-unfetch";
 import { parse, validate } from "fast-xml-parser";
 import { location } from "./location";
-import { promisify } from "util";
-
-const parseAsync = promisify(parse)
 
 export const feedUrl =
   "https://dotfeeds.state.ma.us/api/RMVBranchWaitTime/Index";
@@ -61,7 +58,7 @@ export const convertTimeSpanToString = (timeSpan) => {
   }
 };
 
-const parseXML = (xml) => new Promise((resolve, reject) => {});
+const parseXML = (xml) => new Promise.resolve(parse(xml))
 
 export const parseWaitTimes = async () => {
   const res = await fetch(feedUrl, {
@@ -73,7 +70,7 @@ export const parseWaitTimes = async () => {
     throw new Error("XML is not valid");
   }
 
-  const jsonObj = parseAsync(xml);
+  const jsonObj = parseXML(xml);
 
   const branchData = jsonObj?.branches?.branch ?? [];
 
