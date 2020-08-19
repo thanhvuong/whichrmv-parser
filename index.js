@@ -60,10 +60,12 @@ export const convertTimeSpanToString = (timeSpan) => {
 
 const parseXML = (xml) =>
   new Promise((resolve, reject) => {
-    if (!validate(xml)) {
-      reject(new Error("XML is not valid"));
+    try {
+      const parsed = parse(xml, undefined, true);
+      resolve(parsed);
+    } catch(e) {
+      reject(new Error('Error when parsing XML', e))
     }
-    resolve(parse(xml));
   });
 
 export const parseWaitTimes = async () => {
@@ -92,5 +94,5 @@ export const parseWaitTimes = async () => {
       registration: formatWaitTime(branch.registration),
     };
   });
-  return branches;
+  return Promise.resolve(branches);
 };
