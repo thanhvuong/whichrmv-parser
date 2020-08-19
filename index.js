@@ -74,8 +74,7 @@ export const parseWaitTimes = async () => {
   }
 
   const jsonObj = await parseXML(xml);
-
-  const branchData = jsonObj?.branches?.branch ?? [];
+  const branchData = jsonObj.branches.branch || [];
 
   if (branchData.length < 1) {
     throw new Error("No RMV data");
