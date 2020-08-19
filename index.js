@@ -62,7 +62,10 @@ const parseWaitTimes = async () => {
   const parseXML = (xml) =>
     new Promise((resolve, reject) => {
       try {
-        const parsed = parse(xml, undefined, true);
+        if (!validate(xml)) {
+          reject(new Error("XML is not valid"));
+        }
+        const parsed = parse(xml);
         resolve(parsed);
       } catch (e) {
         reject(new Error("Error when parsing XML", e));
