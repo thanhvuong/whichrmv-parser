@@ -29,5 +29,12 @@
   },
   "scripts": {
     "test": "jest --runInBand --no-cache --config jest.config.js"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanhvuong/whichrmv-parser.git"
   }
 }
