@@ -36,3 +36,8 @@ test('parseWaitTimes() should return data', async () => {
   expect(waitTimes.length).toBeGreaterThan(0);
   expect(waitTimes[0].town).toBe('Attleboro');
 });
+
+// test.only('demo', async () => {
+//   const waitTimes = await parseWaitTimes();
+//   console.log('demo', waitTimes)
+// })
