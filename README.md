@@ -15,9 +15,10 @@ yarn add whichrmv-parser
 ```javascript
 import { parseWaitTimes } from 'whichrmv-parser';
 
-const waitTimes = async() => {
-  return await parseWaitTimes();
-};
+(async () => {
+  const waitTimes = await parseWaitTimes();
+  console.log('waitTimes', waitTimes)
+})();
 ```
 
 ## Testing
