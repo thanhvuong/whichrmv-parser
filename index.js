@@ -60,6 +60,9 @@ export const convertTimeSpanToString = (timeSpan) => {
 
 const parseXML = (xml) =>
   new Promise((resolve, reject) => {
+    if (!validate(xml)) {
+      reject(new Error("XML is not valid"));
+    }
     resolve(parse(xml));
   });
 
@@ -68,11 +71,6 @@ export const parseWaitTimes = async () => {
     method: "GET",
   });
   const xml = await res.text();
-
-  if (!validate(xml)) {
-    throw new Error("XML is not valid");
-  }
-
   const jsonObj = await parseXML(xml);
   const branchData = jsonObj.branches.branch || [];
 
