@@ -2,14 +2,9 @@ import fetch from "isomorphic-unfetch";
 import { parse, validate } from "fast-xml-parser";
 import { location } from "./location";
 
-export const feedUrl =
-  "https://dotfeeds.state.ma.us/api/RMVBranchWaitTime/Index";
+const feedUrl = "https://dotfeeds.state.ma.us/api/RMVBranchWaitTime/Index";
 
-export const locationsMap = () => {
-  return location;
-};
-
-export const formatWaitTime = (waitTime) => {
+const formatWaitTime = (waitTime) => {
   if (waitTime === "Closed") {
     return -1;
   }
@@ -31,7 +26,7 @@ export const formatWaitTime = (waitTime) => {
   }
 };
 
-export const reformatWaitTime = (waitTime) => {
+const reformatWaitTime = (waitTime) => {
   try {
     const timeSegment = waitTime.split(":");
     if (!+timeSegment[0] && !+timeSegment[1] && !+timeSegment[2]) {
@@ -47,7 +42,7 @@ export const reformatWaitTime = (waitTime) => {
   }
 };
 
-export const convertTimeSpanToString = (timeSpan) => {
+const convertTimeSpanToString = (timeSpan) => {
   try {
     const convertedTimeSpan = new Date(1000 * timeSpan)
       .toISOString()
@@ -58,21 +53,22 @@ export const convertTimeSpanToString = (timeSpan) => {
   }
 };
 
-const parseXML = (xml) =>
-  new Promise((resolve, reject) => {
-    try {
-      const parsed = parse(xml, undefined, true);
-      resolve(parsed);
-    } catch(e) {
-      reject(new Error('Error when parsing XML', e))
-    }
-  });
-
-export const parseWaitTimes = async () => {
+const parseWaitTimes = async () => {
   const res = await fetch(feedUrl, {
     method: "GET",
   });
   const xml = await res.text();
+
+  const parseXML = (xml) =>
+    new Promise((resolve, reject) => {
+      try {
+        const parsed = parse(xml, undefined, true);
+        resolve(parsed);
+      } catch (e) {
+        reject(new Error("Error when parsing XML", e));
+      }
+    });
+
   const jsonObj = await parseXML(xml);
   const branchData = jsonObj.branches.branch || [];
 
@@ -94,5 +90,13 @@ export const parseWaitTimes = async () => {
       registration: formatWaitTime(branch.registration),
     };
   });
-  return Promise.resolve(branches);
+  return branches;
+};
+
+export {
+  parseWaitTimes,
+  convertTimeSpanToString,
+  reformatWaitTime,
+  formatWaitTime,
+  feedUrl,
 };

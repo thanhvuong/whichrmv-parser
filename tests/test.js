@@ -12,10 +12,6 @@ test('feedUrl should be feed url', () => {
   expect(feedUrl).toBe('https://dotfeeds.state.ma.us/api/RMVBranchWaitTime/Index');
 });
 
-test('locationsMap() should return locations map', () => {
-  expect(locationsMap()).toBe(location);
-});
-
 test('formatWaitTime() should handle Closed', () => {
   expect(formatWaitTime('Closed')).toBe(-1);
 });
