@@ -19,12 +19,12 @@
   },
   "dependencies": {
     "esm": "^3.2.25",
-    "fast-xml-parser": "^3.15.1",
+    "fast-xml-parser": "^3.17.4",
     "isomorphic-unfetch": "^3.0.0",
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "jest": "^24.9.0",
+    "jest": "^26.4.0",
     "jest-esm-transformer": "^1.0.0"
   },
   "scripts": {
