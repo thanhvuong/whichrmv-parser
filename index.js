@@ -22,15 +22,37 @@ export const formatWaitTime = waitTime => {
     if (!+timeSegment[0] && !+timeSegment[1] && !+timeSegment[2]) {
       return 0;
     }
+    const waitTimeInSeconds = (+timeSegment[0]) * 60 * 60 + (+timeSegment[1]) * 60 + (+timeSegment[2]); 
+    return waitTimeInSeconds;
+  } catch (e) {
+    throw new Error('Error formatting wait time.', e);
+  }
+};
+
+export const reformatWaitTime = (waitTime) => {
+  try {
+    const timeSegment = waitTime.split(':');
+    if (!+timeSegment[0] && !+timeSegment[1] && !+timeSegment[2]) {
+      return 0;
+    }
     const hour = +timeSegment[0] ? `${+timeSegment[0]}h ` : '';
     const min = +timeSegment[1] ? `${+timeSegment[1]}m ` : '';
     const sec = +timeSegment[2] ? `${+timeSegment[2]}s` : '';
     const wait = `${hour}${min}${sec}`.trim();
     return wait;
-  } catch (e) {
-    throw new Error(`Something broke. ${e}`);
+  } catch(e) {
+    throw new Error('Error reformatting wait time.', e)
   }
-};
+}
+
+export const convertTimeSpanToString = (timeSpan) => {
+  try {
+    const convertedTimeSpan = new Date(1000 * timeSpan).toISOString().substr(11, 8);
+    return reformatWaitTime(convertedTimeSpan);
+  } catch(e) {
+    throw new Error('Error converting Timespan to string.', e)
+  }
+}
 
 export const parseWaitTimes = async () => {
   const res = await fetch(feedUrl, {
