@@ -97,9 +97,9 @@ const parseWaitTimes = async () => {
 };
 
 export {
-  parseWaitTimes,
   convertTimeSpanToString,
-  reformatWaitTime,
-  formatWaitTime,
   feedUrl,
+  formatWaitTime,
+  parseWaitTimes,
+  reformatWaitTime,
 };
