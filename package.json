@@ -1,6 +1,6 @@
 {
   "name": "whichrmv-parser",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "parses massachusetts rmv data",
   "main": "index.js",
   "author": "Thanh Vuong",
