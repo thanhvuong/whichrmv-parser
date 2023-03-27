@@ -21,7 +21,7 @@ jobs:
 
       - name: Determine new version
         id: version
-        run: echo ::set-output name=version::$(jq -r '.version' package.json)
+        run: echo $(jq -r '.version' package.json) >> $VERSION
 
       - name: Build package
         run: npm run build
