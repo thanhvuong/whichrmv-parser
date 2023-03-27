@@ -101,7 +101,7 @@ export const parseWaitTimes = async () => {
     throw new Error("No RMV data");
   }
 
-  const branches: RmvBranchType = branchData.map((branch: RmvBranchType) => {
+  const branches: RmvBranchType[] = branchData.map((branch: RmvBranchType) => {
     if (location[branch.town]) {
       const { address, lat, lon, phone } = location[branch.town];
       branch.address = address;
