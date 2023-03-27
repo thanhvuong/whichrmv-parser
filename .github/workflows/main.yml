@@ -25,24 +25,3 @@ jobs:
 
       - name: Build package
         run: npm run build
-
-      - name: Publish to NPM
-        uses: js-actions/npm@v1
-        with:
-          access: public
-          args: publish
-
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.version.outputs.new_tag }}
-          release_name: Release ${{ steps.version.outputs.new_tag }}
-          body: |
-            Changes in this release:
-            - Bug fixes
-            - Performance improvements
-          draft: false
-          prerelease: false
