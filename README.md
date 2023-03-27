@@ -1,4 +1,4 @@
-[![build status](https://travis-ci.org/thanhvuong/whichrmv-parser.svg?branch=master)](https://travis-ci.org/thanhvuong/whichrmv-parser)
+[![build status](https://github.com/thanhvuong/whichrmv-parser/workflows/CI/badge.svg?branch=main)](https://github.com/thanhvuong/whichrmv-parser/actions)
 
 # whichrmv-parser
 
@@ -17,11 +17,12 @@ import { parseWaitTimes } from 'whichrmv-parser';
 
 (async () => {
   const waitTimes = await parseWaitTimes();
-  console.log('waitTimes', waitTimes)
+  console.log('waitTimes', waitTimes);
 })();
 ```
 
 ## Testing
+
 ```
 yarn test
 ```
