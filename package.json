@@ -16,7 +16,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc src/index.ts --outDir lib --module commonjs --target es2019 --esModuleInterop --declaration --declarationDir lib --declarationMap --sourceMap --allowJs false --noEmit false",
-    "check-types": "tsc --noEmit --pretty",
+    "check-types": "tsc src/index.ts --noEmit --pretty",
     "lint": "eslint src",
     "test": "jest --runInBand --no-cache --config jest.config.js"
   },
