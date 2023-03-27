@@ -1,9 +1,11 @@
 module.exports = {
+  roots: ["<rootDir>/src"],
   transform: {
-    '\\.m?jsx?$': 'jest-esm-transformer'
+    "^.+\\.tsx?$": "ts-jest"
   },
+  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   moduleNameMapper: {
-    '^anotherRoot/(.*)$': '<rootDir>/lib/anotherRoot/$1'
-  },
-  transformIgnorePatterns: []
+    "^@/(.*)$": "<rootDir>/src/$1"
+  }
 };
