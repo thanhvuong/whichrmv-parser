@@ -21,10 +21,7 @@ jobs:
 
       - name: Determine new version
         id: version
-        uses: alecsgone/semver-bump-action@v3.1.1
-        with:
-          version: ${{ github.event.head_commit.message }}
-          push: false
+        run: echo ::set-output name=version::$(jq -r '.version' package.json)
 
       - name: Build package
         run: npm run build
