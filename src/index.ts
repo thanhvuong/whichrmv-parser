@@ -1,19 +1,33 @@
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 import { location } from "./location";
 
-export const feedUrl = "https://dotfeeds.state.ma.us/api/RMVBranchWaitTime/Index";
+export const feedUrl =
+  "https://dotfeeds.state.ma.us/api/RMVBranchWaitTime/Index";
 
-export type WaitTime = string;
-export type RmvWaitTimeResponse = "Closed" | "Unavailable" | WaitTime;
-export interface XmlParseResult {
-  [key: string]: any;
-}
+export type ApiResponseWaitTime = string;
+export type TransformedWaitTime = number;
+export type RmvWaitTimeResponse =
+  | "Closed"
+  | "Unavailable"
+  | ApiResponseWaitTime
+  | TransformedWaitTime;
+
 export interface RmvJsonBranch {
   town: string;
   licensing: RmvWaitTimeResponse;
   registration: RmvWaitTimeResponse;
 }
-export interface RmvBranchType extends RmvJsonBranch {
+
+export interface XmlParseResult {
+  branches: {
+    branch: RmvJsonBranch[];
+  };
+}
+
+export interface RmvBranchType {
+  town: string;
+  licensing: number;
+  registration: number;
   address?: string;
   lat?: number;
   lon?: number;
@@ -29,6 +43,10 @@ export const formatWaitTime = (waitTime: RmvWaitTimeResponse): number => {
     return -2;
   }
 
+  if (typeof waitTime === "number") {
+    throw new Error("Wait time is already formatted as a number");
+  }
+
   const colonIndex = waitTime.indexOf(":");
   if (colonIndex === -1) {
     throw new Error("Invalid wait time format: must include a colon");
@@ -36,21 +54,27 @@ export const formatWaitTime = (waitTime: RmvWaitTimeResponse): number => {
 
   const timeSegments = waitTime.split(":");
   if (timeSegments.length !== 3) {
-    throw new Error("Invalid wait time format: must include hours, minutes, and seconds");
+    throw new Error(
+      "Invalid wait time format: must include hours, minutes, and seconds"
+    );
   }
 
-  const [hours, minutes, seconds] = timeSegments.map(segment => parseInt(segment, 10));
+  const [hours, minutes, seconds] = timeSegments.map((segment) =>
+    parseInt(segment, 10)
+  );
   if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
-    throw new Error("Invalid wait time format: must include numeric values for hours, minutes, and seconds");
+    throw new Error(
+      "Invalid wait time format: must include numeric values for hours, minutes, and seconds"
+    );
   }
 
   const waitTimeInSeconds = hours * 3600 + minutes * 60 + seconds;
   return waitTimeInSeconds;
 };
 
-export const reformatWaitTime = (waitTime: WaitTime) => {
+export const reformatWaitTime = (waitTime: ApiResponseWaitTime) => {
   const timeSegments = waitTime.split(":").map(Number);
-  const hasNonZeroSegment = timeSegments.some(segment => segment !== 0);
+  const hasNonZeroSegment = timeSegments.some((segment) => segment !== 0);
 
   if (!hasNonZeroSegment) {
     return "0";
@@ -79,7 +103,9 @@ export const parseWaitTimes = async () => {
     method: "GET",
   });
   const xml = await res.text();
-  const parser = new XMLParser();
+  const parser = new XMLParser({
+    ignoreDeclaration: true,
+  });
 
   const parseXML = <T extends XmlParseResult>(xml: string): Promise<T> =>
     new Promise((resolve, reject) => {
@@ -95,22 +121,20 @@ export const parseWaitTimes = async () => {
     });
 
   const jsonObj = await parseXML(xml);
-  const branchData = jsonObj?.branches?.branch ?? [];
+  const branchData: RmvJsonBranch[] = jsonObj?.branches?.branch ?? [];
 
   if (branchData.length < 1) {
     throw new Error("No RMV data");
   }
 
-  const branches: RmvBranchType[] = branchData.map((branch: RmvBranchType) => {
-    if (location[branch.town]) {
-      const { address, lat, lon, phone } = location[branch.town];
-      branch.address = address;
-      branch.lat = lat;
-      branch.lon = lon;
-      branch.phone = phone;
-    }
+  const branches: RmvBranchType[] = branchData.map((branch) => {
+    const branchMetadata = location[branch?.town] ?? {};
     return {
       ...branch,
+      address: branchMetadata.address ?? "",
+      lat: branchMetadata.lat ?? 0,
+      lon: branchMetadata.lon ?? 0,
+      phone: branchMetadata.phone ?? "",
       licensing: formatWaitTime(branch.licensing),
       registration: formatWaitTime(branch.registration),
     };
