@@ -1,4 +1,4 @@
-[![build status](https://github.com/thanhvuong/whichrmv-parser/workflows/CI/badge.svg?branch=main)](https://github.com/thanhvuong/whichrmv-parser/actions)
+[![CI](https://github.com/thanhvuong/whichrmv-parser/actions/workflows/main.yml/badge.svg)](https://github.com/thanhvuong/whichrmv-parser/actions/workflows/main.yml)
 
 # whichrmv-parser
 
