@@ -35,13 +35,13 @@ export declare const location: {
         lon: number;
         phone: string;
     };
-    'East Hampton': {
+    "East Hampton": {
         address: string;
         lat: number;
         lon: number;
         phone: string;
     };
-    'Fall River': {
+    "Fall River": {
         address: string;
         lat: number;
         lon: number;
@@ -77,7 +77,7 @@ export declare const location: {
         lon: number;
         phone: string;
     };
-    'Marthas Vineyard': {
+    "Marthas Vineyard": {
         address: string;
         lat: number;
         lon: number;
@@ -101,13 +101,13 @@ export declare const location: {
         lon: number;
         phone: string;
     };
-    'New Bedford': {
+    "New Bedford": {
         address: string;
         lat: number;
         lon: number;
         phone: string;
     };
-    'N Adams': {
+    "N Adams": {
         address: string;
         lat: number;
         lon: number;
