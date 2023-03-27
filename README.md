@@ -1,4 +1,4 @@
-[![CI](https://github.com/thanhvuong/whichrmv-parser/actions/workflows/main.yml/badge.svg)](https://github.com/thanhvuong/whichrmv-parser/actions/workflows/main.yml)
+[![CI](https://github.com/thanhvuong/whichrmv-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/thanhvuong/whichrmv-parser/actions/workflows/ci.yml)
 
 # whichrmv-parser
 
